@@ -1,11 +1,12 @@
-import 'package:birthday_1/routes/before_after.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:scratcher/scratcher.dart';
+import 'package:tena/routes/tilePage.dart';
 
 class ScratcherScreen extends StatefulWidget {
-  const ScratcherScreen({Key key}) : super(key: key);
-
+  const ScratcherScreen({Key key, this.assetsAudioPlayer}) : super(key: key);
+    final AssetsAudioPlayer assetsAudioPlayer;
   @override
   _ScratcherScreenState createState() => _ScratcherScreenState();
 }
@@ -40,19 +41,18 @@ class _ScratcherScreenState extends State<ScratcherScreen> {
             child: Scratcher(
                 brushSize: 70,
                 accuracy: ScratchAccuracy.low,
-                threshold: 70,
-                onThreshold: () {
-                  _controller.play();
-                },
-                color: Colors.blueGrey,
+                threshold: 50,
+                onThreshold: () => _controller.play(),
+                color: Color(0xffFFD700),
                 child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                      image: AssetImage('images/pic1.jpeg'),
-                      fit: BoxFit.fill,
+                      image: AssetImage('assets/4-min.jpeg'),
+                      fit: BoxFit.cover,
                     )),
+                    
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,15 +60,15 @@ class _ScratcherScreenState extends State<ScratcherScreen> {
                         FlatButton(
                           color: Colors.black12,
                           child: Text(
-                            'hAPPy Birthday',
+                            'hAPPy Birthday Amer ♥️',
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Container()));
+                                builder: (context) => TilePage(assetsAudioPlayer: widget.assetsAudioPlayer,)));
                           },
                         ),
-                        SizedBox(height: 30)
+                        SizedBox(height: 60)
                       ],
                     ))),
           ),

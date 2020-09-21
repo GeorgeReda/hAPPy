@@ -1,20 +1,47 @@
-import 'package:birthday_1/constants.dart';
-import 'package:birthday_1/routes/before_after.dart';
-import 'package:birthday_1/routes/tindercard.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:tena/routes/scratcher.dart';
 
-void main() async {
-  runApp(MyApp());
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
+class _MyAppState extends State<MyApp> {
+  AssetsAudioPlayer player = AssetsAudioPlayer();
+
+  @override
+  void initState() {
+    player.open(
+      Playlist(audios: [
+        Audio('assets/music1.mp3'),
+        Audio('assets/music2.mp3'),
+      ]),
+      loopMode: LoopMode.playlist,
+      autoStart: true,
+      playInBackground: PlayInBackground.disabledRestoreOnForeground,
+      phoneCallStrategy: PhoneCallStrategy.pauseOnPhoneCallResumeAfter,
+      respectSilentMode: true,
+      volume: 1,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      theme: Constants().theme,
-      home: TinderCard(),
+      title: 'Amer ♥️',
+      home: ScratcherScreen(
+        assetsAudioPlayer: player,
+      ),
     );
   }
 }
